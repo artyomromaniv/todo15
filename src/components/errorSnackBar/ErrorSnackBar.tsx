@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, {AlertProps} from '@mui/material/Alert';
 import {useAppDispatch, useAppSelector} from "../../app/store";
@@ -14,7 +12,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export const ErrorSnackbar = () => {
-    // const [open, setOpen] = React.useState(false);
     const error = useAppSelector(state => state.app.error)
     const dispatch = useAppDispatch()
 
