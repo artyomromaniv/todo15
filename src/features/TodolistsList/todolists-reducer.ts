@@ -1,6 +1,6 @@
 import {todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
-import {RequestStatusType, SetErrorAT, setLoadingStatusAC, SetLoadingStatusAT} from "../../app/app-reducer";
+import {RequestStatusType, setErrorAC, SetErrorAT, setLoadingStatusAC, SetLoadingStatusAT} from "../../app/app-reducer";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -63,8 +63,10 @@ export const removeTodolistTC = (todolistId: string) => {
             .then((res) => {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setLoadingStatusAC('succeeded'))
-            }).catch(()=>{
+            }).catch((e)=>{
+                dispatch(setErrorAC(e.message))
                 dispatch(setLoadingStatusAC('failed'))
+                dispatch(setEntityStatusAC(todolistId,'idle'))
         })
     }
 }
