@@ -10,6 +10,7 @@ import {
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
 import {setErrorAC, SetErrorAT, setLoadingStatusAC, SetLoadingStatusAT} from "../../app/app-reducer";
+import {handleServerAppError, handleSeverNetworkServer} from "../../utils/error-utils";
 
 const initialState: TasksStateType = {}
 
@@ -114,10 +115,16 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
         }
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then(res => {
-                const action = updateTaskAC(taskId, domainModel, todolistId)
-                dispatch(action)
-                dispatch(setLoadingStatusAC('succeeded'))
-            })
+                if (res.data.resultCode === ResultCode.SUCCEEDED) {
+                    const action = updateTaskAC(taskId, domainModel, todolistId)
+                    dispatch(action)
+                    dispatch(setLoadingStatusAC('succeeded'))
+                } else {
+                    handleServerAppError(res.data, dispatch)
+                }
+            }).catch((e) => {
+            handleSeverNetworkServer(dispatch,e)
+        })
     }
 
 // types

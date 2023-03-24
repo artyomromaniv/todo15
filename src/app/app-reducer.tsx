@@ -25,4 +25,4 @@ export const setErrorAC = (error: null | string) => ({type: 'APP/SET-ERROR', err
 export type SetLoadingStatusAT = ReturnType<typeof setLoadingStatusAC>
 export type SetErrorAT = ReturnType<typeof setErrorAC>
 
-type AppActionsType = SetLoadingStatusAT | SetErrorAT
+export type AppActionsType = SetLoadingStatusAT | SetErrorAT
