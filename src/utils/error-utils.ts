@@ -19,3 +19,7 @@ export const handleSeverNetworkServer = (dispatch: ErrorUtilsDispatchType,error:
 }
 
 type ErrorUtilsDispatchType = Dispatch<AppActionsType>
+
+export type ErrorCustomType = {
+    messages: string[]
+}
